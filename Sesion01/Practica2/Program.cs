@@ -34,17 +34,17 @@ namespace Practica2
             Console.Write("Ingrese la primera nota (0.0 y 5.0): ");
             while (!double.TryParse(Console.ReadLine(), out nota1) || nota1 < 0 || nota1 > 5)
             {
-                Console.Write("Nota valida. Ingrese una nota entre 0.0 y 5.0: ");
+                Console.Write("Nota invalida. Ingrese una nota entre 0.0 y 5.0: ");
             }
             Console.Write("Ingrese la primera nota (0.0 y 5.0): ");
             while (!double.TryParse(Console.ReadLine(), out nota2) || nota2 < 0 || nota2 > 5)
             {
-                Console.Write("Nota valida. Ingrese una nota entre 0.0 y 5.0: ");
+                Console.Write("Nota invalida. Ingrese una nota entre 0.0 y 5.0: ");
             }
             Console.Write("Ingrese la primera nota (0.0 y 5.0): ");
             while (!double.TryParse(Console.ReadLine(), out nota3) || nota3 < 0 || nota3 > 5)
             {
-                Console.Write("Nota valida. Ingrese una nota entre 0.0 y 5.0: ");
+                Console.Write("Nota invalida. Ingrese una nota entre 0.0 y 5.0: ");
             }
             double promedio = (nota1 + nota2 + nota3) / 3;
             Console.WriteLine($"El promedio es: {promedio:N1}");
