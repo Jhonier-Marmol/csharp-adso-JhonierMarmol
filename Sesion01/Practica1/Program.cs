@@ -24,12 +24,6 @@ namespace Practica1
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("Este texto sale a color");
             Console.ResetColor();
-
-            const int numero = 5;
-            Console.WriteLine(7 / 2);
-            Console.WriteLine(7 / 2.0);
-            Console.WriteLine(7 % 2);
-            Console.WriteLine((10 + 3) * 2);
         }
     }
 }
