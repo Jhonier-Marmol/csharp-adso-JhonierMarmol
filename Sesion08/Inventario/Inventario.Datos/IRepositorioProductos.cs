@@ -1,12 +1,13 @@
 ﻿using Inventario.Modelos;
 
-namespace Inventario.Datos;
-
-public interface IRepositorioProductos
+namespace Inventario.Datos
 {
-    List<Producto> ObtenerTodos();
-    Producto? BuscarPorCodigo(string codigo);
-    void Agregar(Producto producto);
-    void Actualizar(Producto producto);
-    void Eliminar(string codigo);
+    public interface IRepositorioProductos
+    {
+        List<Producto> ObtenerTodos();
+        Producto? BuscarPorCodigo(string codigo);
+        void Agregar(Producto producto);
+        void Actualizar(Producto producto);
+        void Eliminar(string codigo);
+    }
 }

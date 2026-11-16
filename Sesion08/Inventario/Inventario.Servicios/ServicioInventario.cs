@@ -25,10 +25,7 @@ public class ServicioInventario
     {
         Producto producto = _repositorio.BuscarPorCodigo(codigo)
                             ?? throw new ArgumentException($"No existe el producto {codigo}.");
-
-        // Si tienes un método en Producto para sumar, úsalo. Si no, usa tu propiedad o método correspondiente.
-        // Ejemplo asumiendo que agregaste un método o modificas el stock:
-        producto.Stock += cantidad; // (O el método que uses para sumar stock)
+        producto.Stock += cantidad; 
         _repositorio.Actualizar(producto);
     }
 
@@ -44,6 +41,23 @@ public class ServicioInventario
 
         producto.Vender(cantidad);
         _repositorio.Actualizar(producto);
+    }
+    public List<Producto> BuscarPorTexto(string texto)
+    {
+        if (string.IsNullOrWhiteSpace(texto)) return new List<Producto>();
+
+        string textoMinuscula = texto.ToLower();
+        return _repositorio.ObtenerTodos()
+            .Where(p => p.Nombre.ToLower().Contains(textoMinuscula) || p.Codigo.ToLower().Contains(textoMinuscula))
+            .ToList();
+    }
+
+    public void Eliminar(string codigo)
+    {
+        var producto = _repositorio.BuscarPorCodigo(codigo)
+                       ?? throw new ArgumentException($"No existe ningún producto con el código '{codigo}'.");
+
+        _repositorio.Eliminar(codigo);
     }
 
     public List<Producto> StockBajo()

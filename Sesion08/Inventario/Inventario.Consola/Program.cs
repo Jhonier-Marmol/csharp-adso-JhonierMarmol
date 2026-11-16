@@ -8,14 +8,15 @@ bool salir = false;
 
 while (!salir)
 {
-    Console.Clear();
     Console.WriteLine("=== SISTEMA DE INVENTARIO ===");
     Console.WriteLine("1. Registrar producto");
     Console.WriteLine("2. Agregar stock");
     Console.WriteLine("3. Vender producto");
     Console.WriteLine("4. Ver inventario");
     Console.WriteLine("5. Ver productos con stock bajo (< 5)");
-    Console.WriteLine("6. Salir");
+    Console.WriteLine("6. Buscar producto por texto"); 
+    Console.WriteLine("7. Eliminar producto");          
+    Console.WriteLine("8. Salir");
     Console.Write("\nSeleccione una opción: ");
 
     string? opcion = Console.ReadLine();
@@ -90,15 +91,56 @@ while (!salir)
                     }
                 }
                 break;
-
             case "6":
+                Console.Write("Ingrese texto a buscar (nombre o código): ");
+                string filtro = Console.ReadLine()!;
+                var resultados = servicio.BuscarPorTexto(filtro);
+
+                Console.WriteLine("\n--- RESULTADOS DE BÚSQUEDA ---");
+                if (resultados.Count == 0)
+                {
+                    Console.WriteLine("No se encontraron coincidencias.");
+                }
+                else
+                {
+                    foreach (var p in resultados)
+                    {
+                        Console.WriteLine($"[{p.Codigo}] {p.Nombre} - ${p.Precio:N2} - Stock: {p.Stock}");
+                    }
+                }
+                break;
+
+            case "7":
+                Console.Write("Código del producto a eliminar: ");
+                string codEliminar = Console.ReadLine()!;
+
+                var productoAEliminar = servicio.Listar().FirstOrDefault(p => p.Codigo.Equals(codEliminar, StringComparison.OrdinalIgnoreCase));
+
+                if (productoAEliminar == null)
+                {
+                    Console.WriteLine("\n[Aviso]: No existe un producto con ese código.");
+                }
+                else
+                {
+                    Console.Write($"¿Está seguro de eliminar '{productoAEliminar.Nombre}'? (s/n): ");
+                    string confirmacion = Console.ReadLine()!.Trim().ToLower();
+
+                    if (confirmacion == "s")
+                    {
+                        servicio.Eliminar(codEliminar);
+                        Console.WriteLine("\n¡Producto eliminado con éxito!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nOperación cancelada.");
+                    }
+                }
+                break;
+
+            case "8":
                 salir = true;
                 Console.WriteLine("\n¡Hasta luego!");
                 continue;
-
-            default:
-                Console.WriteLine("\nOpción no válida.");
-                break;
         }
     }
     catch (Exception ex)
