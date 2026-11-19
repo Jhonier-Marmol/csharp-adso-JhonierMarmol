@@ -70,6 +70,18 @@ namespace Inventario
             Stock = checked(Stock + cantidad);
         }
 
+        // En Producto.cs (dentro de Inventario.Modelos) si Nombre o Precio tienen private set:
+        public void ActualizarDatos(string nombre, decimal precio)
+        {
+            if (string.IsNullOrWhiteSpace(nombre))
+                throw new ArgumentException("El nombre es obligatorio.");
+            if (precio < 0)
+                throw new ArgumentException("El precio no puede ser negativo.");
+
+            Nombre = nombre.Trim();
+            Precio = precio;
+        }
+
         public bool Vender(int cantidad)
         {
             if (cantidad <= 0 || cantidad > Stock)

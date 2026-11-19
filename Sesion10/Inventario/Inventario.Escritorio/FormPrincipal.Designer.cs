@@ -46,6 +46,7 @@
             lblEstadoCantidad = new ToolStripStatusLabel();
             lblEstadoHora = new ToolStripStatusLabel();
             timer1 = new System.Windows.Forms.Timer(components);
+            btnReportes = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudCantidad).BeginInit();
             menuStrip1.SuspendLayout();
@@ -64,6 +65,7 @@
             dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProductos.Size = new Size(395, 188);
             dgvProductos.TabIndex = 0;
+            dgvProductos.CellDoubleClick += dgvProductos_CellDoubleClick;
             dgvProductos.DataBindingComplete += dgvProductos_DataBindingComplete_1;
             // 
             // txtBuscar
@@ -192,11 +194,22 @@
             // 
             timer1.Tick += timer1_Tick;
             // 
+            // btnReportes
+            // 
+            btnReportes.Location = new Point(656, 271);
+            btnReportes.Name = "btnReportes";
+            btnReportes.Size = new Size(94, 29);
+            btnReportes.TabIndex = 10;
+            btnReportes.Text = "Reportes";
+            btnReportes.UseVisualStyleBackColor = true;
+            btnReportes.Click += btnReportes_Click;
+            // 
             // FormPrincipal
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnReportes);
             Controls.Add(statusStrip1);
             Controls.Add(nudCantidad);
             Controls.Add(btnAgregarStock);
@@ -239,5 +252,6 @@
         private ToolStripStatusLabel lblEstadoCantidad;
         private ToolStripStatusLabel lblEstadoHora;
         private System.Windows.Forms.Timer timer1;
+        private Button btnReportes;
     }
 }

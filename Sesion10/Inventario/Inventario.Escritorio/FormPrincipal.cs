@@ -141,5 +141,30 @@ public partial class FormPrincipal : Form
         lblEstadoHora.Text = DateTime.Now.ToString("HH:mm:ss");
     }
 
+    private void dgvProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+    {
+        if (e.RowIndex < 0) return; // Evita clics en el encabezado
 
+        if (Seleccionado() is not Producto producto) return;
+
+        using var form = new FormProducto(producto);
+        if (form.ShowDialog() != DialogResult.OK) return;
+
+        try
+        {
+            _servicio.Actualizar(producto.Codigo, producto.Nombre, producto.Precio);
+            CargarProductos();
+        }
+        catch (ArgumentException ex)
+        {
+            MessageBox.Show(ex.Message, "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+    }
+
+    private void btnReportes_Click(object sender, EventArgs e)
+    {
+        using var formReportes = new FormReportes(_servicio);
+        formReportes.ShowDialog();
+        CargarProductos(); // Refresca por si hubo cambios
+    }
 }

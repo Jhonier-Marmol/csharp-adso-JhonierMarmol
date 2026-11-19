@@ -60,6 +60,15 @@ public class ServicioInventario
         _repositorio.Eliminar(codigo);
     }
 
+    public void Actualizar(string codigo, string nuevoNombre, decimal nuevoPrecio)
+    {
+        var producto = _repositorio.BuscarPorCodigo(codigo)
+                       ?? throw new ArgumentException($"No existe el producto {codigo}.");
+
+        producto.ActualizarDatos(nuevoNombre, nuevoPrecio);
+        _repositorio.Actualizar(producto);
+    }
+
     public List<Producto> StockBajo()
     {
         return _repositorio.ObtenerTodos().Where(p => p.Stock < 5).ToList();
